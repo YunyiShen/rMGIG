@@ -4,7 +4,7 @@
 using namespace Rcpp;
 using namespace arma;
 using namespace std;
-#include <Riccati_Solver.h>
+#include "Riccati_Solver.h"
 
 /*
 Rejection sampling to sample MGIG distribution following
@@ -26,11 +26,14 @@ arma::mat rMGIG_cpp(int n, const double & nu,
     res += NA_REAL; 
 
     arma::mat A = eye(size(phi));
-    A *= ((N+1)/2-nu);
+    A *= (nu-(N+1)/2);
+    //Rcout << A <<endl;
 
     // find mode of the MGIG by solving the CARE:
     arma::mat Lambda_star;
-    CARE_ArimotoPotter_cpp(Lambda_star, A, phi, -psi);
+    CARE_ArimotoPotter_cpp(Lambda_star, A, phi, psi);
+    
+    // proposal distribution
     arma::mat Sigma_star = Lambda_star/(df-N-1);
     arma::mat chol_Sigma_star = chol(Sigma_star);
     arma::mat invSigma_star = inv(Sigma_star);
@@ -39,15 +42,16 @@ arma::mat rMGIG_cpp(int n, const double & nu,
     int i_sample = 0; 
     for(int i = 0 ; i<maxit ; ++i){
         // draw proposal sample
-        arma::wishrnd( prop, Sigma_star, df, chol_Sigma_star );
+        prop = arma::wishrnd( Sigma_star, df, chol_Sigma_star );
         arma::log_det(detprop,signprop,prop); 
         logweight = (nu-df/2) * detprop - 
             0.5 * arma::trace(psi * inv_sympd(prop)+(phi-invSigma_star)*prop); 
         if(log(R::runif(0,1))<=logweight){
-            res.col(i_sample) = trimatu(prop);
+            //Rcout << "flag" <<endl;
+            res.col(i_sample) = prop(trimatu_ind(size(prop)));
             ++i_sample;
         }
-
+        if(i_sample==n) break;
     }
     return(res);
 }

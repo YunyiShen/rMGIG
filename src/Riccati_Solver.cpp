@@ -4,10 +4,10 @@
 using namespace Rcpp;
 using namespace arma;
 using namespace std;
-#include <Riccati_Solver.h>
+#include "Riccati_Solver.h"
 /* ARE_Solver_cpp solves Algebric Riccati Equations with the form
  - Continuous time
-    A'*X + X*A + XRX+Q = 0, where X is symmetric.
+    A'*X + X*A - XRX+Q = 0, where X is symmetric.
 
   follow notations in Farideh Fazayeli and Arindam Banerjee
 */
@@ -22,7 +22,7 @@ void CARE_ArimotoPotter_cpp(arma::mat &X,
     int n = A.n_rows;
     arma::mat Z(2 * n, 2 * n, arma::fill::zeros);
     Z.submat(0, 0, n - 1, n - 1) = A;
-    Z.submat(0, n, n - 1, 2 * n - 1) = R;
+    Z.submat(0, n, n - 1, 2 * n - 1) = -R;
     Z.submat(n, 0, 2 * n - 1, n - 1) = -Q;
     Z.submat(n, n, 2 * n - 1, 2 * n - 1) = -A.t();
     //Rcout << Z <<endl;

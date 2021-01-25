@@ -11,7 +11,7 @@ using namespace std;
     A'*P + P*A - PBR^-1 B'P+Q = 0, where P is symmetric.
 */
 
-// [[Rcpp::export]]
+
 void CARE_ArimotoPotter_cpp(arma::mat &X,
                             const arma::mat &A,
                             const arma::mat &R,
