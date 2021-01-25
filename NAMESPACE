@@ -1,3 +1,4 @@
 useDynLib(rMGIG, .registration=TRUE)
 importFrom(Rcpp, evalCpp)
-exportPattern("^[[:alpha:]]+")
+export(rMGIG)
+#exportPattern("^[[:alpha:]]+")

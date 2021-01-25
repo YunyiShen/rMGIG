@@ -1,6 +1,5 @@
 \name{rMGIG-package}
 \alias{rMGIG-package}
-\alias{rMGIG}
 \docType{package}
 \title{
 \packageTitle{rMGIG}
@@ -13,8 +12,7 @@
 The DESCRIPTION file:
 \packageDESCRIPTION{rMGIG}
 \packageIndices{rMGIG}
-~~ An overview of how to use the package, including the most important ~~
-~~ functions ~~
+`rMGIG` draw sample from the matrix Generalized Inverse Gaussian (MGIG) Distribution
 }
 \author{
 \packageAuthor{rMGIG}
@@ -22,15 +20,10 @@ The DESCRIPTION file:
 Maintainer: \packageMaintainer{rMGIG}
 }
 \references{
-~~ Literature or other references for background information ~~
+    Fazayeli, Farideh, and Arindam Banerjee. "The matrix generalized inverse Gaussian distribution: Properties and applications." Joint European Conference on Machine Learning and Knowledge Discovery in Databases. Springer, Cham, 2016.
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the ~~
-~~ R documentation directory ~~
+
 \keyword{ package }
-\seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
 \examples{
-~~ simple examples of the most important functions ~~
+my.sample <- rMGIG(n = 1, nu = 6, phi = diag(3), psi = diag(3), df = 6, list = FALSE, maxit = 1000)
 }

@@ -1,2 +1,20 @@
 [
+    {
+        "definitions" : [
+        ],
+        "file" : "/media/yunyi/Academia/WID-work/Utile_packages_for_Design/rMGIG/src/Riccati_Solver.cpp",
+        "file_last_write" : 1611600429.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/media/yunyi/Academia/WID-work/Utile_packages_for_Design/rMGIG/src/Riccati_Solver.h",
+        "file_last_write" : 1611594770.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/media/yunyi/Academia/WID-work/Utile_packages_for_Design/rMGIG/src/rMGIG.cpp",
+        "file_last_write" : 1611600810.000000
+    }
 ]
