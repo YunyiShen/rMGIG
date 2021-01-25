@@ -1,0 +1,53 @@
+// [[Rcpp::depends(RcppArmadillo)]]
+//#define ARMA_DONT_PRINT_ERRORS
+#include <RcppArmadillo.h>
+using namespace Rcpp;
+using namespace arma;
+using namespace std;
+#include <Riccati_Solver.h>
+
+/*
+Rejection sampling to sample MGIG distribution following
+    Farideh Fazayeli and Arindam Banerjee 2016
+    "The Matrix Generalized Inverse Gaussian Distribution: 
+        Properties and Applications"
+    
+*/
+// [[Rcpp::export]]
+arma::mat rMGIG_cpp(int n, const double & nu, 
+                    const arma::mat & phi, 
+                    const arma::mat & psi,
+                    const double & df,
+                    int maxit){
+
+    int N = phi.n_rows;
+    // will save COLUMN vectors that are upper triangular entries of sample
+    arma::mat res(0.5 * N * (N+1),n,arma::fill::zeros);
+    res += NA_REAL; 
+
+    arma::mat A = eye(size(phi));
+    A *= ((N+1)/2-nu);
+
+    // find mode of the MGIG by solving the CARE:
+    arma::mat Lambda_star;
+    CARE_ArimotoPotter_cpp(Lambda_star, A, phi, -psi);
+    arma::mat Sigma_star = Lambda_star/(df-N-1);
+    arma::mat chol_Sigma_star = chol(Sigma_star);
+    arma::mat invSigma_star = inv(Sigma_star);
+    arma::mat prop, samp;
+    double detprop,signprop, logweight;
+    int i_sample = 0; 
+    for(int i = 0 ; i<maxit ; ++i){
+        // draw proposal sample
+        arma::wishrnd( prop, Sigma_star, df, chol_Sigma_star );
+        arma::log_det(detprop,signprop,prop); 
+        logweight = (nu-df/2) * detprop - 
+            0.5 * arma::trace(psi * inv_sympd(prop)+(phi-invSigma_star)*prop); 
+        if(log(R::runif(0,1))<=logweight){
+            res.col(i_sample) = trimatu(prop);
+            ++i_sample;
+        }
+
+    }
+    return(res);
+}
