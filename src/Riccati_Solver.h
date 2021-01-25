@@ -14,7 +14,7 @@ using namespace std;
 // [[Rcpp::export]]
 void CARE_ArimotoPotter_cpp(arma::mat &X,
                             const arma::mat &A,
-                            const arma::mat &Q,
-                            const arma::mat &R);
+                            const arma::mat &R,
+                            const arma::mat &Q);
 
 #endif
