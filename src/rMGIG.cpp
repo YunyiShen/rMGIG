@@ -1,5 +1,5 @@
 // [[Rcpp::depends(RcppArmadillo)]]
-//#define ARMA_DONT_PRINT_ERRORS
+#define ARMA_DONT_PRINT_ERRORS
 #include <RcppArmadillo.h>
 using namespace Rcpp;
 using namespace arma;
@@ -45,7 +45,7 @@ arma::mat rMGIG_cpp(int n, const double & nu,
         prop = arma::wishrnd( Sigma_star, df, chol_Sigma_star );
         arma::log_det(detprop,signprop,prop); 
         logweight = (nu-df/2) * detprop - 
-            0.5 * arma::trace(psi * inv_sympd(prop)+(phi-invSigma_star)*prop); 
+            0.5 * arma::trace(psi * inv(prop)+(phi-invSigma_star)*prop); 
         if(log(R::runif(0,1))<=logweight){
             //Rcout << "flag" <<endl;
             res.col(i_sample) = prop(trimatu_ind(size(prop)));
