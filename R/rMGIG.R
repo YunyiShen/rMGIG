@@ -32,6 +32,7 @@ is.positive.definite <- function(mat,tol = 1e-8){
 #' @export
 #' @examples
 #' my.sample <- rMGIG(n = 1, nu = 6, phi = diag(3), psi = diag(3), df = 6, list = FALSE, maxit = 1000)
+#' my.sample.list <- rMGIG(n = 1, nu = 6, phi = diag(3), psi = diag(3), df = 6, list = TRUE, maxit = 1000)
 
 
 
@@ -57,7 +58,7 @@ rMGIG <- function(n = 1, nu = 6, phi = diag(3),
     res <- rMGIG_cpp(n,nu,phi,psi,df,maxit)
 
     if(sum(is.na(res))>0) 
-        warning("failed to reach desired sample size, consider larger maxiter")
+        warning("failed to reach desired sample size, consider larger maxiter, or change df")
     
     if(list){
         return(lapply(1:n,get_mat,res,nrow(psi)))
