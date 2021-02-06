@@ -5,7 +5,7 @@ Version: 1.0
 Date: 2021-01-24
 Author: Yunyi Shen
 Maintainer: Yunyi Shen <yyshen@pku.edu.cn>
-Description: Sampling Matrix Generalized Inverse Gaussian Distribution using Rejection Sampling proposed by Fazayeli and Banerjee 2016
+Description: Sample from Matrix Generalized Inverse Gaussian Distribution using Rejection Sampling proposed by Fazayeli and Banerjee 2016
 License: GPL-3
 Imports: Rcpp (>= 1.0.5)
 LinkingTo: Rcpp, RcppArmadillo
