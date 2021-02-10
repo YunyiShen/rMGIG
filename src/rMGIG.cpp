@@ -55,3 +55,19 @@ arma::mat rMGIG_cpp(int n, const double & nu,
     }
     return(res);
 }
+
+// [[Rcpp::export]]
+arma::mat mMGIG_cpp(const double & nu, 
+                    const arma::mat & phi, 
+                    const arma::mat & psi){
+
+    int N = phi.n_rows;
+    arma::mat A = eye(size(phi));
+    A *= (nu-(N+1)/2);
+
+    // find mode of the MGIG by solving the CARE:
+    arma::mat Lambda_star;
+    CARE_ArimotoPotter_cpp(Lambda_star, A, phi, psi);
+    return(Lambda_star);
+}
+

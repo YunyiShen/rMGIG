@@ -16,6 +16,7 @@ is.positive.definite <- function(mat,tol = 1e-8){
 
 #' Sampling from Matrix Generalized Inverse Gaussian distribution
 #'
+#' Sampling from Matrix Generalized Inverse Gaussian distribution, 
 #' Method follow Farideh Fazayeli and Arindam Banerjee 2016
 #' "The Matrix Generalized Inverse Gaussian Distribution:
 #' Properties and Applications"
@@ -38,6 +39,9 @@ is.positive.definite <- function(mat,tol = 1e-8){
 
 rMGIG <- function(n = 1, nu = 6, phi = diag(3), 
     psi = diag(3), df = 6, list = F, maxit = 10000) {
+    if (n<1 | (n%%1 != 0)){
+        stop("n must be a positive integer")
+    }
     if (nrow(phi) != ncol(phi))
         stop("phi must be square")
     if (nrow(psi) != ncol(psi))
@@ -52,7 +56,7 @@ rMGIG <- function(n = 1, nu = 6, phi = diag(3),
         stop("phi must be positive defined")
     if (!is.positive.definite(psi, tol = 1e-8))
         stop("psi must be positive defined")
-    if (df <= nrow(phi))
+    if (df < nrow(phi)-1)
         stop("df must be greater than dimension-1")
 
     res <- rMGIG_cpp(n,nu,phi,psi,df,maxit)
@@ -66,6 +70,51 @@ rMGIG <- function(n = 1, nu = 6, phi = diag(3),
     else {
        return(res)
     }
+}
+
+
+
+
+
+#' Return the mode of Matrix Generalized Inverse Gaussian distribution
+#'
+#' Mode of Matrix Generalized Inverse Gaussian distribution, 
+#' Method follow Farideh Fazayeli and Arindam Banerjee 2016
+#' "The Matrix Generalized Inverse Gaussian Distribution:
+#' Properties and Applications" 
+#' by solving the ARE 
+#' 
+#'
+#' @param nu double, nu parameter for the MGIG
+#' @param phi phi parameter positive (semi)defined matrix, reduce to inverse-Wishart if set to 0
+#' @param psi psi parameter positive (semi)defined matrix, reduce to Wishart if set to 0
+#' @return a matrix, the mode of the MGIG
+#' @export
+#' @examples
+#' my.mode <- mMGIG(nu = 6, phi = diag(3), psi = diag(3))
+
+
+mMGIG <- function(nu = 6, phi = diag(3), psi = diag(3)) {
+    if (nrow(phi) != ncol(phi))
+        stop("phi must be square")
+    if (nrow(psi) != ncol(psi))
+        stop("psi must be square")
+    if (nrow(psi) != nrow(phi))
+        stop("dimension of phi and psi must match")
+    if(!isSymmetric(phi))
+        stop("phi must be symmetric")
+    if(!isSymmetric(psi))
+        stop("psi must be symmetric")
+    if (!is.positive.definite(phi, tol = 1e-8))
+        stop("phi must be positive defined")
+    if (!is.positive.definite(psi, tol = 1e-8))
+        stop("psi must be positive defined")
+
+
+    res <- mMGIG_cpp(nu,phi,psi)
+
+
+    return(res)
 }
 
 

@@ -9,3 +9,7 @@ rMGIG_cpp <- function(n, nu, phi, psi, df, maxit) {
     .Call(`_rMGIG_rMGIG_cpp`, n, nu, phi, psi, df, maxit)
 }
 
+mMGIG_cpp <- function(nu, phi, psi) {
+    .Call(`_rMGIG_mMGIG_cpp`, nu, phi, psi)
+}
+

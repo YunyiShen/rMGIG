@@ -35,10 +35,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// mMGIG_cpp
+arma::mat mMGIG_cpp(const double& nu, const arma::mat& phi, const arma::mat& psi);
+RcppExport SEXP _rMGIG_mMGIG_cpp(SEXP nuSEXP, SEXP phiSEXP, SEXP psiSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const double& >::type nu(nuSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type phi(phiSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type psi(psiSEXP);
+    rcpp_result_gen = Rcpp::wrap(mMGIG_cpp(nu, phi, psi));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rMGIG_CARE_ArimotoPotter_cpp", (DL_FUNC) &_rMGIG_CARE_ArimotoPotter_cpp, 4},
     {"_rMGIG_rMGIG_cpp", (DL_FUNC) &_rMGIG_rMGIG_cpp, 6},
+    {"_rMGIG_mMGIG_cpp", (DL_FUNC) &_rMGIG_mMGIG_cpp, 3},
     {NULL, NULL, 0}
 };
 
