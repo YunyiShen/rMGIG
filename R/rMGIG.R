@@ -32,8 +32,12 @@ is.positive.definite <- function(mat,tol = 1e-8){
 #' @return a matrix with upper triangular part of the positive defined matrix as columns or a list whose entries are the sampled matrix
 #' @export
 #' @examples
-#' my.sample <- rMGIG(n = 1, nu = 6, phi = diag(3), psi = diag(3), df = 6, list = FALSE, maxit = 1000)
-#' my.sample.list <- rMGIG(n = 1, nu = 6, phi = diag(3), psi = diag(3), df = 6, list = TRUE, maxit = 1000)
+#' my.sample <- rMGIG(n = 1, nu = 6, phi = diag(3), 
+#' psi = diag(3), df = 6, 
+#' list = FALSE, maxit = 1000)
+#' my.sample.list <- rMGIG(n = 1, nu = 6, phi = diag(3), 
+#' psi = diag(3), df = 6, 
+#' list = TRUE, maxit = 1000)
 
 
 

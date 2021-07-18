@@ -39,6 +39,10 @@ Method follow Farideh Fazayeli and Arindam Banerjee 2016
 Properties and Applications"
 }
 \examples{
-my.sample <- rMGIG(n = 1, nu = 6, phi = diag(3), psi = diag(3), df = 6, list = FALSE, maxit = 1000)
-my.sample.list <- rMGIG(n = 1, nu = 6, phi = diag(3), psi = diag(3), df = 6, list = TRUE, maxit = 1000)
+my.sample <- rMGIG(n = 1, nu = 6, phi = diag(3), 
+psi = diag(3), df = 6, 
+list = FALSE, maxit = 1000)
+my.sample.list <- rMGIG(n = 1, nu = 6, phi = diag(3), 
+psi = diag(3), df = 6, 
+list = TRUE, maxit = 1000)
 }

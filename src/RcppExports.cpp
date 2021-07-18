@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // CARE_ArimotoPotter_cpp
 void CARE_ArimotoPotter_cpp(arma::mat& X, const arma::mat& A, const arma::mat& R, const arma::mat& Q);
 RcppExport SEXP _rMGIG_CARE_ArimotoPotter_cpp(SEXP XSEXP, SEXP ASEXP, SEXP RSEXP, SEXP QSEXP) {
