@@ -4,7 +4,17 @@
 \alias{KLdiv}
 \title{Estimate the KL divergence between two MGIG distribution}
 \usage{
-KLdiv(nu1, phi1, psi1, nu2, phi2, psi2, n_samples = 5000)
+KLdiv(
+  nu1,
+  phi1,
+  psi1,
+  nu2,
+  phi2,
+  psi2,
+  n_samples = 5000,
+  df = 10 * nrow(psi1),
+  maxit = 1e+06
+)
 }
 \arguments{
 \item{nu1}{double, nu parameter for the first MGIG}
@@ -20,6 +30,10 @@ KLdiv(nu1, phi1, psi1, nu2, phi2, psi2, n_samples = 5000)
 \item{psi2}{psi parameter for the second positive (semi)defined matrix, reduce to Wishart if set to 0}
 
 \item{n_samples}{samples to take to estimate the KL divergence}
+
+\item{df}{degree of freedom for the proposed Wishart when sampling the MGIG}
+
+\item{maxit}{maximum iteration to sample MGIG}
 }
 \value{
 a matrix, the mode of the MGIG

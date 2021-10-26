@@ -176,6 +176,8 @@ fMGIG <- function(X, nu = 6, phi = diag(3), psi = diag(3), logirithm = TRUE) {
 #' @param phi2 phi parameter for the second positive (semi)defined matrix, reduce to inverse-Wishart if set to 0
 #' @param psi2 psi parameter for the second positive (semi)defined matrix, reduce to Wishart if set to 0
 #' @param n_samples samples to take to estimate the KL divergence
+#' @param df degree of freedom for the proposed Wishart when sampling the MGIG
+#' @param maxit maximum iteration to sample MGIG
 #' @return a matrix, the mode of the MGIG
 #' @export
 
