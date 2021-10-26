@@ -181,7 +181,7 @@ fMGIG <- function(X, nu = 6, phi = diag(3), psi = diag(3), logirithm = TRUE) {
 #' @param n_samples samples to take to estimate the KL divergence
 #' @param df degree of freedom for the proposed Wishart when sampling the MGIG
 #' @param maxit maximum iteration to sample MGIG
-#' @return a matrix, the mode of the MGIG
+#' @return KL divergence of the two MGIGs MGIG(nu1,phi1,psi1)||MGIG(nu2,phi2,psi2)
 #' @export
 
 KLdiv <- function(nu1, phi1, psi1, nu2, phi2, psi2, n_samples = 5000 , df = 10*nrow(psi1), maxit = 1e6){

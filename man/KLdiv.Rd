@@ -36,7 +36,7 @@ KLdiv(
 \item{maxit}{maximum iteration to sample MGIG}
 }
 \value{
-a matrix, the mode of the MGIG
+KL divergence of the two MGIGs MGIG(nu1,phi1,psi1)||MGIG(nu2,phi2,psi2)
 }
 \description{
 Calculate the KL(MGIG(nu1,phi1,psi1)||MGIG(nu2,phi2,psi2))
