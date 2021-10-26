@@ -12,7 +12,10 @@ is.positive.definite <- function(mat,tol = 1e-8){
     all(eigen(mat,T,T,F)$values>=0)
 }
 
-
+log_sum_exp <- function(x){
+    xstar <- max(x)
+    xstar + log(sum(exp(x-xstar)))
+}
 
 #' Sampling from Matrix Generalized Inverse Gaussian distribution
 #'
@@ -183,12 +186,12 @@ fMGIG <- function(X, nu = 6, phi = diag(3), psi = diag(3), logirithm = TRUE) {
 
 KLdiv <- function(nu1, phi1, psi1, nu2, phi2, psi2, n_samples = 5000 , df = 10*nrow(psi1), maxit = 1e6){
     samples <- rMGIG(n_samples, nu1, phi1, psi1, df, list = TRUE, maxit = maxit)
-    logfoverg <- lapply(samples, function(X,nu1, phi1, psi1, nu2, phi2, psi2 ){
+    logfoverg <- sapply(samples, function(X,nu1, phi1, psi1, nu2, phi2, psi2 ){
         fMGIG(X,nu1, phi1, psi1) - fMGIG(X,nu2, phi2, psi2)
     },nu1, phi1, psi1, nu2, phi2, psi2)
 
-    term1 <- log(mean(sapply(logfoverg, function(x){exp(-x)})))
-    term2 <- Reduce(mean, logfoverg)
+    term1 <- log_sum_exp(-logfoverg) - log(n_samples)
+    term2 <- mean(logfoverg)
     
     term1+term2
 }
