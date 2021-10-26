@@ -71,3 +71,15 @@ arma::mat mMGIG_cpp(const double & nu,
     return(Lambda_star);
 }
 
+// [[Rcpp::export]]
+double fMGIG_cpp(const arma::mat & X, 
+                 const double & nu, 
+                 const arma::mat & phi, 
+                 const arma::mat & psi, 
+                 bool logrithm = true){
+    int d = X.n_cols;
+    arma::mat X_inv = inv_sympd(X);
+    double logf = (nu-(d+1.0)/2) * log_det_sympd(X);
+    logf -= .5*trace(psi * X_inv + phi * X);
+    return logrithm ? logf : exp(logf);  
+}

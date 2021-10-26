@@ -13,3 +13,7 @@ mMGIG_cpp <- function(nu, phi, psi) {
     .Call(`_rMGIG_mMGIG_cpp`, nu, phi, psi)
 }
 
+fMGIG_cpp <- function(X, nu, phi, psi, logrithm = TRUE) {
+    .Call(`_rMGIG_fMGIG_cpp`, X, nu, phi, psi, logrithm)
+}
+

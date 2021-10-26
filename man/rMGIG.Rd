@@ -10,7 +10,7 @@ rMGIG(
   phi = diag(3),
   psi = diag(3),
   df = 6,
-  list = F,
+  list = TRUE,
   maxit = 10000
 )
 }
